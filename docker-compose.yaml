@@ -1,0 +1,44 @@
+version: '2.1'
+services:
+
+  db:
+    image: mariadb
+    container_name: prestadev_db
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: prestashop
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      timeout: 20s
+      retries: 10
+    restart: unless-stopped
+
+  prestadev:
+    image: prestashop/prestashop:1.7-7.2-apache
+    container_name: prestadev_www
+    ports:
+      - 127.0.0.1:80:80
+    volumes:
+      - ./www:/var/www/html
+    environment:
+      DB_SERVER: db
+      DB_NAME: prestashop
+      DB_USER: root
+      DB_PASSWD: root
+      PS_INSTALL_AUTO: 1
+      PS_ALL_LANGUAGES: 1
+      PS_FOLDER_INSTALL: install-dev
+      PS_FOLDER_ADMIN: admin-dev
+      ADMIN_MAIL: dev@vilkas.fi
+      ADMIN_PASSWD: admin
+      PS_DEV_MODE: 1
+      PS_DOMAIN: localhost
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db:db 

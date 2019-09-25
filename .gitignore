@@ -1,0 +1,8 @@
+# emacs & friends
+*~
+
+# just the folders
+www/*
+!www/.gitkeep
+db-data/*
+!db-data/.gitkeep
