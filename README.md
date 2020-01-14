@@ -13,7 +13,11 @@ cd presta-docker-dev
 docker-compose up
 ```
 
-and open http://localhost/
+Grab a coffee while installer runs and open http://localhost/
+
+Admin interface can be found in http://localhost/admin-dev/ (dev@vilkas.fi/admin)
+
+Whole prestashop can be found in "www" folder.
 
 ### Reset
 
