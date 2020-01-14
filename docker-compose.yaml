@@ -7,7 +7,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./db-data:/var/lib/mysql
+      - ./db-data:/var/lib/mysql:z
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: prestashop
@@ -23,7 +23,7 @@ services:
     ports:
       - 127.0.0.1:80:80
     volumes:
-      - ./www:/var/www/html
+      - ./www:/var/www/html:z
     environment:
       DB_SERVER: db
       DB_NAME: prestashop
